@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da Galeria - Lumen CAD Design</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        .test-section {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #2c5f5f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .test-button:hover {
+            background: #4a9d9d;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+        }
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+        .info {
+            background: rgba(44, 95, 95, 0.2);
+            border: 1px solid #2c5f5f;
+            color: #4a9d9d;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste da Galeria de Portfólio</h1>
+    
+    <div class="test-section">
+        <h2>📋 Status dos Arquivos</h2>
+        <div id="fileStatus"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>🎯 Testes da Galeria</h2>
+        <p>Clique nos botões abaixo para testar diferentes funcionalidades:</p>
+        
+        <button class="test-button" onclick="testGallery('coroas')">
+            🦷 Testar Galeria de Coroas
+        </button>
+        
+        <button class="test-button" onclick="testGallery('facetas')">
+            💎 Testar Galeria de Facetas
+        </button>
+        
+        <button class="test-button" onclick="testGallery('enceramento')">
+            🔥 Testar Galeria de Enceramento
+        </button>
+        
+        <button class="test-button" onclick="testGallery('modelos')">
+            🧊 Testar Galeria de Modelos 3D
+        </button>
+        
+        <button class="test-button" onclick="testGallery('guias')">
+            🗺️ Testar Galeria de Guias
+        </button>
+        
+        <button class="test-button" onclick="testGallery('placas')">
+            📋 Testar Galeria de Placas
+        </button>
+    </div>
+    
+    <div class="test-section">
+        <h2>🔧 Ferramentas de Teste</h2>
+        <button class="test-button" onclick="checkImages()">
+            📸 Verificar Imagens
+        </button>
+        
+        <button class="test-button" onclick="loadExampleImages()">
+            🌐 Carregar Imagens de Exemplo
+        </button>
+        
+        <button class="test-button" onclick="showGalleryData()">
+            📊 Mostrar Dados da Galeria
+        </button>
+    </div>
+    
+    <div class="test-section">
+        <h2>📱 Teste de Responsividade</h2>
+        <p>Teste a galeria em diferentes tamanhos de tela:</p>
+        <button class="test-button" onclick="simulateMobile()">
+            📱 Simular Mobile
+        </button>
+        
+        <button class="test-button" onclick="simulateTablet()">
+            📱 Simular Tablet
+        </button>
+        
+        <button class="test-button" onclick="resetViewport()">
+            🖥️ Resetar Viewport
+        </button>
+    </div>
+    
+    <div class="test-section">
+        <h2>⌨️ Controles de Teclado</h2>
+        <p>Teste a navegação por teclado:</p>
+        <ul>
+            <li><strong>← →</strong> Navegar entre imagens</li>
+            <li><strong>ESC</strong> Fechar galeria</li>
+            <li><strong>Enter</strong> Abrir galeria (quando focado)</li>
+        </ul>
+    </div>
+
+    <script>
+        // Função para testar a galeria
+        function testGallery(category) {
+            const galleryData = {
+                coroas: {
+                    title: 'Coroas Estéticas',
+                    description: 'Design de coroas com acabamento natural',
+                    images: [
+                        'images/coroas-digitais.jpg',
+                        'images/coroas-digitais-2.jpg',
+                        'images/coroas-digitais-3.jpg'
+                    ],
+                    titles: [
+                        'Coroas Estéticas - Vista Frontal',
+                        'Coroas Estéticas - Vista Lateral',
+                        'Coroas Estéticas - Detalhe'
+                    ]
+                },
+                facetas: {
+                    title: 'Facetas Laminadas',
+                    description: 'Transformação de sorrisos',
+                    images: [
+                        'images/facetas-laminadas.jpg',
+                        'images/facetas-laminadas-2.jpg',
+                        'images/facetas-laminadas-3.jpg',
+                        'images/facetas-laminadas-4.jpg'
+                    ],
+                    titles: [
+                        'Facetas Laminadas - Antes',
+                        'Facetas Laminadas - Durante',
+                        'Facetas Laminadas - Depois',
+                        'Facetas Laminadas - Detalhe'
+                    ]
+                },
+                enceramento: {
+                    title: 'Enceramento Digital',
+                    description: 'Planejamento virtual detalhado',
+                    images: [
+                        'images/enceramento-digital.jpg',
+                        'images/enceramento-digital-2.jpg'
+                    ],
+                    titles: [
+                        'Enceramento Digital - Planejamento',
+                        'Enceramento Digital - Resultado'
+                    ]
+                },
+                modelos: {
+                    title: 'Modelos Tridimensionais',
+                    description: 'Visualização completa do projeto',
+                    images: [
+                        'images/modelos-3d.jpg',
+                        'images/modelos-3d-2.jpg',
+                        'images/modelos-3d-3.jpg',
+                        'images/modelos-3d-4.jpg',
+                        'images/modelos-3d-5.jpg'
+                    ],
+                    titles: [
+                        'Modelo 3D - Vista Geral',
+                        'Modelo 3D - Vista Superior',
+                        'Modelo 3D - Vista Lateral',
+                        'Modelo 3D - Detalhe Interno',
+                        'Modelo 3D - Renderização'
+                    ]
+                },
+                guias: {
+                    title: 'Guias Cirúrgicos',
+                    description: 'Precisão em procedimentos',
+                    images: [
+                        'images/guias-cirurgicos.jpg',
+                        'images/guias-cirurgicos-2.jpg',
+                        'images/guias-cirurgicos-3.jpg'
+                    ],
+                    titles: [
+                        'Guia Cirúrgico - Design',
+                        'Guia Cirúrgico - Fabricação',
+                        'Guia Cirúrgico - Aplicação'
+                    ]
+                },
+                placas: {
+                    title: 'Placas Odontológicas',
+                    description: 'Conforto e funcionalidade',
+                    images: [
+                        'images/placas-odontologicas.jpg',
+                        'images/placas-odontologicas-2.jpg'
+                    ],
+                    titles: [
+                        'Placa Odontológica - Design',
+                        'Placa Odontológica - Finalizada'
+                    ]
+                }
+            };
+            
+            const data = galleryData[category];
+            if (data) {
+                showTestGallery(data.title, data.description, data.images, data.titles);
+            } else {
+                alert('Categoria não encontrada!');
+            }
+        }
+        
+        // Função para mostrar a galeria de teste
+        function showTestGallery(title, description, images, titles) {
+            // Remove existing modal
+            const existingModal = document.querySelector('.test-modal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'test-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${title}</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>${description}</p>
+                        <div class="modal-image-container">
+                            <img class="modal-main-image" src="${images[0]}" alt="${titles[0]}" id="mainImage">
+                            <button class="modal-image-nav prev" id="prevBtn">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="modal-image-nav next" id="nextBtn">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="modal-thumbnails" id="thumbnails">
+                            ${images.map((img, index) => `
+                                <img class="modal-thumbnail ${index === 0 ? 'active' : ''}" 
+                                     src="${img}" 
+                                     alt="${titles[index]}" 
+                                     data-index="${index}">
+                            `).join('')}
+                        </div>
+                        <div class="modal-image-counter">
+                            <span id="imageCounter">1 / ${images.length}</span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="modal-btn modal-btn-secondary">Fechar</button>
+                    </div>
+                </div>
+            `;
+            
+            // Add styles
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            
+            const backdrop = modal.querySelector('.modal-backdrop');
+            backdrop.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+            `;
+            
+            const content = modal.querySelector('.modal-content');
+            content.style.cssText = `
+                background: #2a2a2a;
+                border: 1px solid #2c5f5f;
+                border-radius: 12px;
+                max-width: 800px;
+                width: 95%;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+                z-index: 1;
+                transform: scale(0.9);
+                transition: transform 0.3s ease;
+            `;
+            
+            // Add to DOM
+            document.body.appendChild(modal);
+            
+            // Animate in
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                content.style.transform = 'scale(1)';
+            }, 100);
+            
+            // Gallery functionality
+            let currentImageIndex = 0;
+            const mainImage = modal.querySelector('#mainImage');
+            const prevBtn = modal.querySelector('#prevBtn');
+            const nextBtn = modal.querySelector('#nextBtn');
+            const thumbnails = modal.querySelectorAll('.modal-thumbnail');
+            const imageCounter = modal.querySelector('#imageCounter');
+            
+            function updateImage(index) {
+                currentImageIndex = index;
+                mainImage.src = images[index];
+                mainImage.alt = titles[index];
+                
+                // Update thumbnails
+                thumbnails.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+                
+                // Update counter
+                imageCounter.textContent = `${index + 1} / ${images.length}`;
+                
+                // Update navigation buttons
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === images.length - 1;
+            }
+            
+            // Navigation event listeners
+            prevBtn.addEventListener('click', () => {
+                if (currentImageIndex > 0) {
+                    updateImage(currentImageIndex - 1);
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentImageIndex < images.length - 1) {
+                    updateImage(currentImageIndex + 1);
+                }
+            });
+            
+            // Thumbnail event listeners
+            thumbnails.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => {
+                    updateImage(index);
+                });
+            });
+            
+            // Close functionality
+            const closeModal = () => {
+                modal.style.opacity = '0';
+                content.style.transform = 'scale(0.9)';
+                setTimeout(() => modal.remove(), 300);
+            };
+            
+            modal.querySelector('.modal-close').addEventListener('click', closeModal);
+            modal.querySelector('.modal-btn-secondary').addEventListener('click', closeModal);
+            backdrop.addEventListener('click', closeModal);
+            
+            // Initialize
+            updateImage(0);
+        }
+        
+        // Função para verificar imagens
+        function checkImages() {
+            const statusDiv = document.getElementById('fileStatus');
+            const categories = ['coroas', 'facetas', 'enceramento', 'modelos', 'guias', 'placas'];
+            let statusHTML = '';
+            
+            categories.forEach(category => {
+                const imageCount = getImageCount(category);
+                const status = imageCount > 0 ? 'success' : 'error';
+                const icon = imageCount > 0 ? '✅' : '❌';
+                
+                statusHTML += `
+                    <div class="status ${status}">
+                        ${icon} ${category.toUpperCase()}: ${imageCount} imagem(ns) encontrada(s)
+                    </div>
+                `;
+            });
+            
+            statusDiv.innerHTML = statusHTML;
+        }
+        
+        // Função para contar imagens
+        function getImageCount(category) {
+            const baseNames = {
+                coroas: 'coroas-digitais',
+                facetas: 'facetas-laminadas',
+                enceramento: 'enceramento-digital',
+                modelos: 'modelos-3d',
+                guias: 'guias-cirurgicos',
+                placas: 'placas-odontologicas'
+            };
+            
+            const baseName = baseNames[category];
+            let count = 0;
+            
+            // Check main image
+            const mainImg = new Image();
+            mainImg.onload = () => count++;
+            mainImg.src = `images/${baseName}.jpg`;
+            
+            // Check additional images
+            for (let i = 2; i <= 5; i++) {
+                const img = new Image();
+                img.onload = () => count++;
+                img.src = `images/${baseName}-${i}.jpg`;
+            }
+            
+            return count;
+        }
+        
+        // Função para carregar imagens de exemplo
+        function loadExampleImages() {
+            alert('Esta função carregaria imagens de exemplo do Unsplash. Implemente conforme necessário.');
+        }
+        
+        // Função para mostrar dados da galeria
+        function showGalleryData() {
+            const data = {
+                coroas: { images: 3, titles: 3 },
+                facetas: { images: 4, titles: 4 },
+                enceramento: { images: 2, titles: 2 },
+                modelos: { images: 5, titles: 5 },
+                guias: { images: 3, titles: 3 },
+                placas: { images: 2, titles: 2 }
+            };
+            
+            let dataHTML = '<h3>📊 Dados da Galeria:</h3>';
+            Object.entries(data).forEach(([category, info]) => {
+                dataHTML += `
+                    <div class="status info">
+                        ${category.toUpperCase()}: ${info.images} imagens, ${info.titles} títulos
+                    </div>
+                `;
+            });
+            
+            document.getElementById('fileStatus').innerHTML = dataHTML;
+        }
+        
+        // Funções de simulação de viewport
+        function simulateMobile() {
+            document.body.style.maxWidth = '375px';
+            document.body.style.margin = '0 auto';
+        }
+        
+        function simulateTablet() {
+            document.body.style.maxWidth = '768px';
+            document.body.style.margin = '0 auto';
+        }
+        
+        function resetViewport() {
+            document.body.style.maxWidth = '800px';
+            document.body.style.margin = '0 auto';
+        }
+        
+        // Verificar status inicial
+        window.addEventListener('load', () => {
+            checkImages();
+        });
+    </script>
+</body>
+</html>
